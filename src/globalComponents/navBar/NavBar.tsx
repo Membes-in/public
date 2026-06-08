@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,51 +10,14 @@ import styles from "./styles/NavBar.module.css";
 
 function NavBar() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  // const [showNavbar, setShowNavbar] = useState(true);
-  // const [lastScrollY, setLastScrollY] = useState(0);
   const path = usePathname();
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (window.scrollY > lastScrollY) {
-  //       setShowNavbar(false);
-  //     } else {
-  //       setShowNavbar(true);
-  //     }
-  //     setLastScrollY(window.scrollY);
-  //   };
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, [lastScrollY]);
-
-  const url = typeof window !== "undefined" ? window.location.pathname : "";
-  const pid = url ? url.split("/").pop() : "";
-
-  const fetchData = async () => {
-    if (!pid) return;
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/manager/plan/getMembershipPlan?planID=${pid}`,
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const result = await response.json();
-      const firstBusinessID = result.data.membershipPlans[0]?.businessID;
-      window.location.href = `/business/${firstBusinessID}`;
-    } catch (error: any) {
-      setError(error.message);
-    }
-  };
   const handleClick = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     } else {
-      fetchData();
+      window.location.href = `/#${id}`;
     }
   };
 

@@ -1,13 +1,11 @@
 "use client";
-import { selectBusinessData } from "@/app/Redux/slice/businessSlice/BusinessData";
 import styles from "./FooterBar.module.css";
-import { useAppSelector } from "@/app/Redux/hooks";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "../logo/Logo";
 import { usePathname } from "next/navigation";
-import businessSocialLinks from "./data/businessSocialLinks";
+import publicSiteConfig from "@/content/publicSiteConfig";
 import facebook from "./icons/faceBookIcon.svg";
 import instagram from "./icons/instagramIcon.svg";
 import linkedin from "./icons/linkedInIcon.svg";
@@ -15,12 +13,8 @@ import x from "./icons/xIcon.svg";
 import youtube from "./icons/youtubeIcon.svg";
 
 function FooterBar() {
-  const businessData = useAppSelector(selectBusinessData);
-  const socials = businessData?.socialMediaLinks || businessSocialLinks;
-
+  const socials = publicSiteConfig.socials;
   const path = usePathname();
-  // Only generated business webpages use the "FlexFit"/Trainers variant; the
-  // marketing landing and static pages (legal, etc.) are Membes-branded.
   const isBusinessPage = path?.startsWith("/business") ?? false;
 
   const handleClick = (id: string) => {
@@ -28,8 +22,6 @@ function FooterBar() {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     } else {
-      // Section isn't on this page (e.g. a legal page) — send the user to the
-      // corresponding section on the home page instead of doing nothing.
       window.location.href = `/#${id}`;
     }
   };
@@ -53,7 +45,7 @@ function FooterBar() {
     }
   };
 
-  const list = socials?.map((item, index) => {
+  const list = socials.map((item, index) => {
     const iconSrc = getSocialIcon(item.platform);
     if (!iconSrc) return null;
 
@@ -72,14 +64,11 @@ function FooterBar() {
 
   return (
     <div className={styles.footerBar}>
-      {/* Content */}
       <div className={styles.content}>
-        {/* Logo */}
         <div className={styles.logo}>
           <Logo />
           <p>{isBusinessPage ? "FlexFit" : "Membes"}</p>
         </div>
-        {/* Navigation */}
         <ul className={styles.links}>
           <li onClick={() => handleClick("servicesSection")}>Services</li>
           {!isBusinessPage && (
@@ -91,10 +80,8 @@ function FooterBar() {
           )}
           <li onClick={() => handleClick("contactSection")}>Contact us</li>
         </ul>
-        {/* Socials */}
         <div className={styles.socials}>{list}</div>
       </div>
-      {/* Credits */}
       <div className={styles.credits}>
         <hr className={styles.divider} />
         <div className={styles.creditsText}>
