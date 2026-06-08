@@ -1,12 +1,10 @@
 "use client";
-import { useAppSelector } from "@/app/Redux/hooks";
-import { selectBusinessData } from "@/app/Redux/slice/businessSlice/BusinessData";
+import publicSiteConfig from "@/content/publicSiteConfig";
 import PrimaryButton from "@/globalComponents/buttons/primaryButton/PrimaryButton";
 import InputBox from "@/globalComponents/inputs/inputBox/InputBox";
 import PhoneInput from "@/globalComponents/inputs/phoneInputBox/PhoneInput";
 import TextArea from "@/globalComponents/inputs/textArea/TextArea";
 import dynamic from "next/dynamic";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 import styles from "./ContactSection.module.css";
 import ConfirmationModal from "./localComponents/confirmationModal/ConfirmationModal";
@@ -17,20 +15,9 @@ const MapComponent = dynamic(
   { ssr: false }
 );
 
-interface BusinessData {
-  email: string;
-  phone: string;
-  location?: [number, number];
-}
-
 function ContactSection() {
   const [isModalActive, setIsModalActive] = useState(false);
-  const businessData = useAppSelector(
-    selectBusinessData
-  ) as BusinessData | null;
-  const path = usePathname();
-
-  const buttonName = path === "/" ? "Enquire Now" : "Submit";
+  const { contact } = publicSiteConfig;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -43,7 +30,14 @@ function ContactSection() {
     name: "",
   });
 
-  const handleChange = ({ name, value }: { name: string, value: string, type?: string }) => {
+  const handleChange = ({
+    name,
+    value,
+  }: {
+    name: string;
+    value: string;
+    type?: string;
+  }) => {
     if (name === "name") {
       const nameRegex = /^[A-Za-z\s]+$/;
       if (!nameRegex.test(value)) {
@@ -80,25 +74,21 @@ function ContactSection() {
         return;
       }
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/manager/webpage/connect`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({
-            userName: formData.name,
-            email: formData.email,
-            phoneNumber: formData.phone,
-            description: formData.desc,
-          }),
-        }
+      const subject = encodeURIComponent(
+        `New Membes enquiry from ${formData.name}`
+      );
+      const body = encodeURIComponent(
+        [
+          `Name: ${formData.name}`,
+          `Email: ${formData.email}`,
+          `Phone: ${formData.phone}`,
+          "",
+          "Requirement:",
+          formData.desc || "No additional details provided.",
+        ].join("\n")
       );
 
-      if (!response.ok) throw new Error("Failed to submit form");
-
-      const data = await response.json();
-      if (!data.success) throw new Error(data.message || "Submission failed");
+      window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
 
       setFormData({ name: "", email: "", phone: "", desc: "" });
       setIsModalActive(true);
@@ -128,13 +118,7 @@ function ContactSection() {
       >
         <div className={styles.left}>
           <div className={styles.moblieLocation}>
-            <MapComponent
-              location={
-                businessData?.location
-                  ? businessData.location
-                  : [26.8489028, 80.7777007]
-              }
-            />
+            <MapComponent location={contact.location} />
           </div>
 
           <h1>
@@ -169,19 +153,13 @@ function ContactSection() {
               value={formData.desc}
               onChange={handleChange}
             />
-            <PrimaryButton onClick={handleSubmit}>{buttonName}</PrimaryButton>
+            <PrimaryButton onClick={handleSubmit}>Enquire Now</PrimaryButton>
           </form>
         </div>
 
         <div className={styles.right}>
           <div className={styles.mapPanel}>
-            <MapComponent
-              location={
-                businessData?.location
-                  ? businessData.location
-                  : [26.8489028, 80.7777007]
-              }
-            />
+            <MapComponent location={contact.location} />
             <div className={styles.socialsContainer}>
               <Socials />
             </div>
@@ -189,12 +167,10 @@ function ContactSection() {
         </div>
       </div>
 
-      {
-        isModalActive && (
-          <ConfirmationModal setIsModalActive={setIsModalActive} />
-        )
-      }
-    </div >
+      {isModalActive && (
+        <ConfirmationModal setIsModalActive={setIsModalActive} />
+      )}
+    </div>
   );
 }
 

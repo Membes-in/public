@@ -11,27 +11,25 @@ the manager/business/payment product screens have been removed.
 
 ```bash
 cd homepage/frontend
-cp .env.example .env.local      # set NEXT_PUBLIC_BACKEND_URL
 npm install
 npm run dev                     # http://localhost:3000
 ```
-
-## Environment
-
-| Var | Purpose |
-|---|---|
-| `NEXT_PUBLIC_BACKEND_URL` | Base URL of the homepage backend; the Contact form POSTs to `${NEXT_PUBLIC_BACKEND_URL}/manager/webpage/connect` |
 
 ## Build & deploy
 
 ```bash
 npm run build
-npm start
 ```
 
-Deploys cleanly to **Vercel** (set `NEXT_PUBLIC_BACKEND_URL` as a project env var),
-or any Node host via `npm run build && npm start`. The contact form needs the
-[backend](../backend) running and reachable at `NEXT_PUBLIC_BACKEND_URL`.
+This repo now supports both common Render deployment modes:
+
+- **Render Static Site**: `npm install && npm run build`, publish directory `out`
+- **Render Web Service / other Node hosts**: `npm run build && npm start`
+
+The public homepage is currently self-contained and does not require any
+environment variables or backend APIs to render or collect enquiries. The
+contact form opens the visitor's email client with a prefilled message instead
+of posting to a backend endpoint.
 
 ## Structure
 
