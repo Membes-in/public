@@ -1,0 +1,39 @@
+.reveal {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  opacity: 0;
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.up {
+  transform: translateY(38px);
+}
+
+.left {
+  transform: translateX(-44px);
+}
+
+.right {
+  transform: translateX(44px);
+}
+
+.scale {
+  transform: scale(0.94);
+}
+
+.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
