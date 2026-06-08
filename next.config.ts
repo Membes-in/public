@@ -1,6 +1,9 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // Render Static Sites need a real static export in ./out.
+  output: "export",
+  trailingSlash: true,
   reactStrictMode: true,
   // Lint errors (mostly inherited from shared components) shouldn't block a
   // production build/deploy. Type errors still fail the build.
@@ -8,6 +11,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',

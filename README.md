@@ -26,12 +26,19 @@ npm run dev                     # http://localhost:3000
 
 ```bash
 npm run build
-npm start
 ```
 
-Deploys cleanly to **Vercel** (set `NEXT_PUBLIC_BACKEND_URL` as a project env var),
-or any Node host via `npm run build && npm start`. The contact form needs the
-[backend](../backend) running and reachable at `NEXT_PUBLIC_BACKEND_URL`.
+This repo now supports both common Render deployment modes:
+
+- **Render Static Site**: `npm install && npm run build`, publish directory `out`
+- **Render Web Service / other Node hosts**: `npm run build && npm start`
+
+For Render Static Sites, the checked-in [render.yaml](./render.yaml) will prompt
+for `NEXT_PUBLIC_BACKEND_URL` during Blueprint setup and publish the generated
+`out/` directory.
+
+The contact form needs the [backend](../backend) running and reachable at
+`NEXT_PUBLIC_BACKEND_URL`.
 
 ## Structure
 

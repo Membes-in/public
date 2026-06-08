@@ -50,8 +50,6 @@ function NavBar() {
       setError(error.message);
     }
   };
-  console.log(error);
-
   const handleClick = (id: string) => {
     const element = document.getElementById(id);
     if (element) {

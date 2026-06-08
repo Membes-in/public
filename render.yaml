@@ -1,0 +1,8 @@
+services:
+  - type: static
+    name: membes-homepage
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./out
+    envVars:
+      - key: NEXT_PUBLIC_BACKEND_URL
+        sync: false
