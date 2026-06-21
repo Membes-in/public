@@ -1,0 +1,171 @@
+.usageSection {
+  overflow: hidden;
+  border-radius: 28px;
+  display: flex;
+  width: min(1180px, 86vw);
+  padding: clamp(32px, 4vw, 54px) clamp(12px, 2vw, 24px) clamp(42px, 5vw, 64px);
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  align-self: center;
+  margin-inline: auto;
+}
+
+.usageSectionTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: -200px;
+  position: relative;
+  width: min(918px, 86vw);
+}
+
+.usageSectionTitle h1 {
+  font-family: var(--urbanist);
+  font-size: clamp(72px, 10vw, 142px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--transparent-overlay-off-white-30);
+}
+
+.usageSectionTitle>p {
+  font-family: var(--urbanist);
+  font-size: clamp(34px, 4.6vw, 56px);
+  font-style: normal;
+  font-weight: 700;
+  position: absolute;
+  bottom: 0;
+  color: var(--bodytext-pure-white);
+}
+
+.usageSectionTitle>p>span {
+  font-size: 56px;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--primary-green);
+}
+
+.divider {
+  stroke-width: 1.5px;
+  height: 0px;
+  width: 100%;
+  border-color: var(--transparent-overlay-primary-blue-50);
+}
+
+.usageContainer {
+  display: flex;
+  gap: 25px;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.usageMetadata {
+  display: flex;
+  width: 486px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.verticalDivider {
+  stroke-width: 1.5px;
+  border-color: var(--transparent-overlay-primary-blue-50);
+}
+
+.usageListContainer {
+  display: flex;
+  height: 438px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--bodytext-pure-white);
+
+  font-family: var(--poppins);
+  /* overflow: hidden; */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+}
+
+.usageList {
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.usageList::-webkit-scrollbar {
+  display: none;
+}
+
+
+@media screen and (max-width: 900px) {
+  .usageSection {
+    padding: 22px 18px 30px;
+    width: min(100%, calc(100vw - 32px));
+    border-radius: 11px;
+    box-sizing: border-box;
+  }
+
+  .overlay {
+    height: fit-content;
+    width: 100%;
+    padding: 25px 0px;
+
+    gap: 10px;
+
+  }
+
+  .usageSectionTitle h1 {
+    font-size: 16vw;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.05;
+  }
+
+  .usageSectionTitle p {
+    font-size: clamp(22px, 6vw, 30px);
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .usageSectionTitle p span {
+    font-size: clamp(22px, 6vw, 30px);
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .usageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .divider {
+    width: 90%;
+  }
+
+  .usageMetadata {
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+  }
+
+  .usageListContainer {
+    width: 95%;
+  }
+
+  .usageList {
+    width: 100%;
+    overflow-x: hidden;
+    /* padding: 0px 8px; */
+  }
+}

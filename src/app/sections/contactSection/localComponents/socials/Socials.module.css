@@ -1,0 +1,56 @@
+.socials {
+    display: inline-flex;
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 35px 40px;
+    background-color: rgba(244, 244, 244, 0.82);
+    width: fit-content;
+    border-radius: 12px;
+    backdrop-filter: blur(25px);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 9999;
+
+}
+
+.socials>div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.imageFrame {
+    display: flex;
+    width: 16px;
+    height: 16px;
+    padding: 2px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    filter: brightness(0) saturate(100%) invert(15%) sepia(24%) saturate(1049%) hue-rotate(131deg) brightness(94%) contrast(96%);
+}
+
+.socials>div>p {
+    font-family: var(--poppins);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: var(--bodytext-dark-green);
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+}
+
+.verticalDivider {
+    width: 13px;
+    transform: rotate(-90deg);
+    flex: 1 0 0;
+    border-color: rgba(6, 52, 52, 0.55);
+}
