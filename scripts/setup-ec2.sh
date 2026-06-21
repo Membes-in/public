@@ -1,13 +1,12 @@
 #!/bin/bash
 # One-time EC2 setup script for Membes homepage.
-# Run as the default user (ubuntu / ec2-user) after SSHing into the instance.
+# Run as the default user (ubuntu) after SSHing into the instance.
 # Usage:  bash setup-ec2.sh
 
 set -e
 
 REPO_URL="https://github.com/Membes-in/public.git"
 APP_DIR="$HOME/public"
-DOMAIN="YOUR_DOMAIN"   # replace before running (e.g. membes.in)
 
 echo "==> 1. System update"
 sudo apt-get update -y && sudo apt-get upgrade -y
@@ -36,7 +35,6 @@ cd "$APP_DIR"
 echo "==> 7. Frontend — install deps and build"
 cd frontend
 cp .env.example .env
-# Edit .env here if needed: nano .env
 npm ci
 npm run build
 cd ..
@@ -44,23 +42,19 @@ cd ..
 echo "==> 8. Backend — install deps"
 cd backend
 cp .env.example .env
-# Edit .env here with SMTP creds, DB URL, etc.: nano .env
 npm ci
 cd ..
 
 echo "==> 9. Start apps with PM2"
 pm2 start ecosystem.config.js --env production
 pm2 save
-pm2 startup | tail -1 | sudo bash   # registers PM2 to start on reboot
+pm2 startup | tail -1 | sudo bash
 
 echo "==> 10. Configure Nginx"
 sudo cp scripts/nginx.conf /etc/nginx/sites-available/membes
-sudo sed -i "s/YOUR_DOMAIN/$DOMAIN/g" /etc/nginx/sites-available/membes
 sudo ln -sf /etc/nginx/sites-available/membes /etc/nginx/sites-enabled/membes
 sudo rm -f /etc/nginx/sites-enabled/default
 sudo nginx -t && sudo systemctl reload nginx
 
 echo ""
-echo "==> Done! Site should be live at http://$DOMAIN"
-echo "    To add HTTPS: sudo apt install certbot python3-certbot-nginx -y"
-echo "                  sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN"
+echo "==> Done! Site is live at http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)"
