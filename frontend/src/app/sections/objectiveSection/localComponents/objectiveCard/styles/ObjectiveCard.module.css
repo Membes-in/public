@@ -1,0 +1,88 @@
+.objectiveCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.25rem;
+    min-width: 260px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.objectiveCard:hover {
+    transform: translateY(-4px);
+    border-color: rgba(184, 254, 34, 0.28);
+}
+
+.iconContainer {
+    background-color: var(--bodyfill-grey);
+    display: flex;
+    padding: 1.25rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    border-radius: 6.25rem;
+}
+
+.objectiveCard h1 {
+    font: var(--fonts-barlow);
+    font-size: 1.875rem;
+    color: var(--primary-green);
+    width: 100%;
+    overflow-wrap: break-word;
+}
+
+
+
+.objectiveCard p {
+    font-family: var(--poppins);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--bodytext-pure-white);
+    width: 100%;
+    overflow-wrap: break-word;
+}
+
+@media screen and (max-width : 620px) {
+    .objectiveCard {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 20px;
+        align-self: stretch;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .objectiveCard h1 {
+        font-size: 18px;
+        font-style: italic;
+        font-weight: 700;
+        line-height: 1.18;
+    }
+
+    .objectiveCard p {
+        font-family: var(--poppins);
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.5;
+    }
+
+    .objectiveCard div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.625rem;
+    }
+
+    .iconContainer {
+        padding: 1.25rem;
+    }
+}

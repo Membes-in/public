@@ -1,0 +1,5 @@
+# Root ignores — sub-folders have their own .gitignore too
+node_modules/
+.env
+*.pem
+.DS_Store
